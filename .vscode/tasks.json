@@ -1,0 +1,36 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "mac build",
+      "type": "shell",
+      "command": "go build -ldflags '-w -s '  -o ./cmd/mac main.go",
+      "windows": {
+        "command": "go build -ldflags '-w -s '  -o ./cmd/mac.exe main.go"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "mac upx",
+      "type": "shell",
+      "dependsOn": [
+        "mac build"
+      ],
+      "command": "./cmd/upx ./cmd/mac",
+      "windows": {
+        "command": "./cmd/upx.exe ./cmd/mac.exe"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}
